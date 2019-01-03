@@ -1,0 +1,110 @@
+import json
+import numpy as np
+import requests
+from gensim.models import Word2Vec
+import json
+
+X_data = np.load('coreapi/dataset/X_data.npy')
+
+word_model = Word2Vec.load("coreapi/dataset/word2vec.model")
+
+max_sentence_len = 1740  # maximum value of a sequence made by test user
+
+
+def word2idx(word):
+    # use to generate word from the given index in word model
+    return word_model.wv.vocab[word].index
+
+
+def idx2word(idx):
+    # use to generate index from the given word in word model
+    return word_model.wv.index2word[idx]
+
+
+def sample(predictions, temperature=1.0):
+    # given output predictions from the tensorflow model, movie id is predicted with max probability
+    if temperature <= 0:
+        return np.argmax(predictions)
+    predictions = np.asarray(predictions).astype('float64')
+    predictions = np.log(predictions) / temperature
+    exp_preds = np.exp(predictions)
+    predictions = exp_preds / np.sum(exp_preds)
+    probabilities = np.random.multinomial(1, predictions, 1)
+    return np.argmax(probabilities)
+
+
+def generate_next(text, num_generated=10):
+    # given a sequence of movie ids, a next sequence of 10 is generated
+    word_idx = [word2idx(word) for word in text.lower().split()]
+    for i in range(num_generated):
+        data = json.dumps({"instances": [[23]]})
+        headers = {"content-type": "application/json"}
+        json_response = requests.post('http://localhost:850/v1/models/model:predict', data=data, headers=headers)
+        predictions = json.loads(json_response.text)
+        prediction = np.asanyarray(predictions['predictions'])
+        idx = sample(prediction[-1], temperature=1)
+        word_idx.append(idx)
+    return ' '.join(idx2word(idx) for idx in word_idx)
+
+
+def get_movie_descriptions(recommended_movies):
+    # convert list of movie ids into a json movie descriptions using elasticsearch api
+    movie_dict = recommended_movies.split(' ')
+    recommended_movie_titles = []
+    for movie in movie_dict:
+        response = requests.get(url="http://localhost:9200/movie/_doc/" + str(movie))
+        response_dict = json.loads(response.text)
+        if response_dict['found']:
+            print("dictionary is ")
+            print(response_dict['_source']['Title'])
+            recommended_movie_titles.append(response_dict['_source'])
+        else:
+            print("Id " + str(movie) + " Not found")
+            # here omdb rest api is to be used
+    return recommended_movie_titles
+
+
+def generate_list(seq):
+    # convert sequence of given movies into recommended movie description and return json format
+    movie_ids = get_movie_ids(seq)
+    recommended_movie_ids = generate_next(movie_ids)
+    print("recommended ids are")
+    print(recommended_movie_ids)
+    movie_descriptions = get_movie_descriptions(recommended_movie_ids)
+    return json.dumps(movie_descriptions)
+
+
+def get_id(movie_name):
+    """{
+    "query": {
+        "match" : {
+            "Title" : "toy story 2"
+                }
+        }
+    }"""
+
+    title_dict = {"Title": movie_name}
+
+    match_dict = {"match": title_dict}
+
+    query_dict = {"query": match_dict}
+
+    data = json.dumps(query_dict)
+    headers = {"content-type": "application/json"}
+
+    query_response = requests.get("http://localhost:9200/movie/_search", data=data, headers=headers)
+    query_response_dict = json.loads(query_response.text)
+
+    final_id = query_response_dict['hits']['hits'][0]['_id']
+
+    # print(final_id)
+    return final_id
+
+
+def get_movie_ids(movie_list):
+    movie_ids = ""
+    dict = json.loads(movie_list)
+    for i in dict['list']:
+        movie_ids = movie_ids + " " + get_id(i)
+    print(movie_ids)
+    return movie_ids
