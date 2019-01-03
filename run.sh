@@ -6,6 +6,8 @@ function cleanup {
   sudo kill `sudo lsof -t -i:8000` &> /dev/null || true
   sudo kill `sudo lsof -t -i:9200` &> /dev/null || true
   sudo kill `sudo lsof -t -i:850` &> /dev/null || true
+  >server.log
+  >server_elastic.log
 }
 trap cleanup EXIT
 

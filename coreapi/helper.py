@@ -1,9 +1,9 @@
+import json
+
 import numpy as np
+import pandas as pd
 import requests
 from gensim.models import Word2Vec
-import json
-import pandas as pd
-
 
 word_model = Word2Vec.load("coreapi/dataset/word2vec.model")
 links = pd.read_csv('coreapi/dataset/links.csv', sep=',', dtype=object)
