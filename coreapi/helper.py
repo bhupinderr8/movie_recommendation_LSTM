@@ -2,9 +2,11 @@ import numpy as np
 import requests
 from gensim.models import Word2Vec
 import json
+import pandas as pd
 
 
 word_model = Word2Vec.load("coreapi/dataset/word2vec.model")
+links = pd.read_csv('coreapi/dataset/links.csv', sep=',', dtype=object)
 
 
 def word2idx(word):
@@ -43,6 +45,17 @@ def generate_next(text, num_generated=10):
     return ' '.join(idx2word(idx) for idx in word_idx)
 
 
+def get_omdb(movie):
+    imdb_id = links.loc[links['movieId'] == str(movie)]['imdbId'].tolist()
+    json_response = requests.get("http://www.omdbapi.com/?i=tt" + str(imdb_id[0]) + "&apikey=fdfe80e8")
+    return json_response
+
+
+def add_id(json_response, id):
+    headers = {"content-type": "application/json"}
+    requests.put('http://localhost:9200/movie/_doc/' + id + '?pretty', data=json_response, headers=headers)
+
+
 def get_movie_descriptions(recommended_movies):
     # convert list of movie ids into a json movie descriptions using elasticsearch api
     movie_dict = recommended_movies.split(' ')
@@ -51,11 +64,15 @@ def get_movie_descriptions(recommended_movies):
         response = requests.get(url="http://localhost:9200/movie/_doc/" + str(movie))
         response_dict = json.loads(response.text)
         if response_dict['found']:
-            print(response_dict['_source']['Title'], movie)
+            print("Movie Found:", response_dict['_source']['Title'], movie)
             recommended_movie_titles.append(response_dict['_source'])
         else:
-            print("Id " + str(movie) + " Not found")
             # here omdb rest api is to be used
+            json_response = get_omdb(movie)
+            movie_description = json.loads(json_response.text)
+            recommended_movie_titles.append(movie_description)
+            print("Movie Not Found Adding:", movie_description['Title'], "  Id:", movie)
+            add_id(json_response, movie)
     return recommended_movie_titles
 
 

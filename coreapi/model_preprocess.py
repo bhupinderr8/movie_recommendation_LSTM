@@ -6,9 +6,12 @@ import keras
 from keras.layers import Dense, LSTM
 from keras.models import Sequential
 import warnings
+import os
 warnings.filterwarnings('ignore')
 
-dataset = pd.read_csv("coreapi/dataset/ratings.csv", sep=',', nrows=100000)
+directory_name = os.path.dirname(__file__)
+filename = os.path.join(directory_name, 'dataset/ratings.csv')
+dataset = pd.read_csv(filename, sep=',')
 
 X_Data = np.asanyarray(dataset.sort_values(['userId', 'timestamp']).groupby('userId')['timestamp'].apply(list))
 X_data = dataset.sort_values(['userId', 'timestamp']).groupby('userId')['movieId'].apply(list)
@@ -22,7 +25,9 @@ for i in range(1, len(X_data)):
     l.append(l1)
 
 word_model = Word2Vec(l, size=100, min_count=1, window=5, iter=10)
-word_model.save('./word2vec.model')
+word_model_save_path = os.path.join(directory_name, 'dataset/word2vec.model')
+word_model.save(word_model_save_path)
+# noinspection PyTypeChecker
 max_sentence_len = len(max(l, key=len))
 
 
@@ -58,4 +63,5 @@ pd.Series(history.history['loss']).plot(logy=True)
 plt.xlabel("Epoch")
 plt.ylabel("Train Error")
 
-model.save('coreapi/dataset/keras_model.h5')
+model_save_path = os.path.join(directory_name, 'dataset/keras_model.h5')
+model.save(model_save_path)

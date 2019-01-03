@@ -1,17 +1,18 @@
-2019-01-03 14:40:19.541675: I tensorflow_serving/model_servers/server.cc:82] Building single TensorFlow model file config:  model_name: model model_base_path: /home/bhupinder/PycharmProjects/movie_recommendation_LSTM/coreapi/dataset
-2019-01-03 14:40:19.541854: I tensorflow_serving/model_servers/server_core.cc:461] Adding/updating models.
-2019-01-03 14:40:19.541875: I tensorflow_serving/model_servers/server_core.cc:558]  (Re-)adding model: model
-2019-01-03 14:40:19.642520: I tensorflow_serving/core/basic_manager.cc:739] Successfully reserved resources to load servable {name: model version: 1}
-2019-01-03 14:40:19.642623: I tensorflow_serving/core/loader_harness.cc:66] Approving load for servable version {name: model version: 1}
-2019-01-03 14:40:19.642683: I tensorflow_serving/core/loader_harness.cc:74] Loading servable version {name: model version: 1}
-2019-01-03 14:40:19.642779: I external/org_tensorflow/tensorflow/contrib/session_bundle/bundle_shim.cc:363] Attempting to load native SavedModelBundle in bundle-shim from: /home/bhupinder/PycharmProjects/movie_recommendation_LSTM/coreapi/dataset/1
-2019-01-03 14:40:19.642827: I external/org_tensorflow/tensorflow/cc/saved_model/reader.cc:31] Reading SavedModel from: /home/bhupinder/PycharmProjects/movie_recommendation_LSTM/coreapi/dataset/1
-2019-01-03 14:40:19.858974: I external/org_tensorflow/tensorflow/cc/saved_model/reader.cc:54] Reading meta graph with tags { serve }
-2019-01-03 14:40:19.877744: I external/org_tensorflow/tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
-2019-01-03 14:40:19.906740: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:162] Restoring SavedModel bundle.
-2019-01-03 14:40:22.448275: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:138] Running MainOp with key legacy_init_op on SavedModel bundle.
-2019-01-03 14:40:22.448339: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:259] SavedModel load for tags { serve }; Status: success. Took 2805508 microseconds.
-2019-01-03 14:40:22.448391: I tensorflow_serving/servables/tensorflow/saved_model_warmup.cc:83] No warmup data file found at /home/bhupinder/PycharmProjects/movie_recommendation_LSTM/coreapi/dataset/1/assets.extra/tf_serving_warmup_requests
-2019-01-03 14:40:22.448576: I tensorflow_serving/core/loader_harness.cc:86] Successfully loaded servable version {name: model version: 1}
-2019-01-03 14:40:22.530326: I tensorflow_serving/model_servers/server.cc:286] Running gRPC ModelServer at 0.0.0.0:8500 ...
-[evhttp_server.cc : 222] RAW: Couldn't bind to port 850
+2019-01-03 17:42:11.841571: I tensorflow_serving/model_servers/server.cc:82] Building single TensorFlow model file config:  model_name: model model_base_path: /home/bhupinder/PycharmProjects/movie_recommendation_LSTM/coreapi/dataset
+2019-01-03 17:42:11.841765: I tensorflow_serving/model_servers/server_core.cc:461] Adding/updating models.
+2019-01-03 17:42:11.841791: I tensorflow_serving/model_servers/server_core.cc:558]  (Re-)adding model: model
+2019-01-03 17:42:11.842718: I tensorflow_serving/core/basic_manager.cc:739] Successfully reserved resources to load servable {name: model version: 1}
+2019-01-03 17:42:11.842756: I tensorflow_serving/core/loader_harness.cc:66] Approving load for servable version {name: model version: 1}
+2019-01-03 17:42:11.842772: I tensorflow_serving/core/loader_harness.cc:74] Loading servable version {name: model version: 1}
+2019-01-03 17:42:11.842800: I external/org_tensorflow/tensorflow/contrib/session_bundle/bundle_shim.cc:363] Attempting to load native SavedModelBundle in bundle-shim from: /home/bhupinder/PycharmProjects/movie_recommendation_LSTM/coreapi/dataset/1
+2019-01-03 17:42:11.842813: I external/org_tensorflow/tensorflow/cc/saved_model/reader.cc:31] Reading SavedModel from: /home/bhupinder/PycharmProjects/movie_recommendation_LSTM/coreapi/dataset/1
+2019-01-03 17:42:11.852473: I external/org_tensorflow/tensorflow/cc/saved_model/reader.cc:54] Reading meta graph with tags { serve }
+2019-01-03 17:42:11.864012: I external/org_tensorflow/tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2019-01-03 17:42:11.907711: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:162] Restoring SavedModel bundle.
+2019-01-03 17:42:11.984343: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:138] Running MainOp with key legacy_init_op on SavedModel bundle.
+2019-01-03 17:42:11.984384: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:259] SavedModel load for tags { serve }; Status: success. Took 141564 microseconds.
+2019-01-03 17:42:11.984407: I tensorflow_serving/servables/tensorflow/saved_model_warmup.cc:83] No warmup data file found at /home/bhupinder/PycharmProjects/movie_recommendation_LSTM/coreapi/dataset/1/assets.extra/tf_serving_warmup_requests
+2019-01-03 17:42:11.984483: I tensorflow_serving/core/loader_harness.cc:86] Successfully loaded servable version {name: model version: 1}
+2019-01-03 17:42:11.985912: I tensorflow_serving/model_servers/server.cc:286] Running gRPC ModelServer at 0.0.0.0:8500 ...
+[evhttp_server.cc : 237] RAW: Entering the event loop ...
+2019-01-03 17:42:11.986690: I tensorflow_serving/model_servers/server.cc:302] Exporting HTTP/REST API at:localhost:850 ...

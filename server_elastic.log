@@ -1,16 +1,57 @@
 OpenJDK 64-Bit Server VM warning: Option UseConcMarkSweepGC was deprecated in version 9.0 and will likely be removed in a future release.
-[2019-01-03T14:41:54,140][WARN ][o.e.b.ElasticsearchUncaughtExceptionHandler] [unknown] uncaught exception in thread [main]
-org.elasticsearch.bootstrap.StartupException: java.lang.RuntimeException: can not run elasticsearch as root
-	at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:140) ~[elasticsearch-6.5.4.jar:6.5.4]
-	at org.elasticsearch.bootstrap.Elasticsearch.execute(Elasticsearch.java:127) ~[elasticsearch-6.5.4.jar:6.5.4]
-	at org.elasticsearch.cli.EnvironmentAwareCommand.execute(EnvironmentAwareCommand.java:86) ~[elasticsearch-6.5.4.jar:6.5.4]
-	at org.elasticsearch.cli.Command.mainWithoutErrorHandling(Command.java:124) ~[elasticsearch-cli-6.5.4.jar:6.5.4]
-	at org.elasticsearch.cli.Command.main(Command.java:90) ~[elasticsearch-cli-6.5.4.jar:6.5.4]
-	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:93) ~[elasticsearch-6.5.4.jar:6.5.4]
-	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:86) ~[elasticsearch-6.5.4.jar:6.5.4]
-Caused by: java.lang.RuntimeException: can not run elasticsearch as root
-	at org.elasticsearch.bootstrap.Bootstrap.initializeNatives(Bootstrap.java:103) ~[elasticsearch-6.5.4.jar:6.5.4]
-	at org.elasticsearch.bootstrap.Bootstrap.setup(Bootstrap.java:170) ~[elasticsearch-6.5.4.jar:6.5.4]
-	at org.elasticsearch.bootstrap.Bootstrap.init(Bootstrap.java:333) ~[elasticsearch-6.5.4.jar:6.5.4]
-	at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:136) ~[elasticsearch-6.5.4.jar:6.5.4]
-	... 6 more
+[2019-01-03T17:42:14,950][INFO ][o.e.e.NodeEnvironment    ] [H2ROGP7] using [1] data paths, mounts [[/home (/dev/sda7)]], net usable_space [358.8gb], net total_space [465gb], types [ext4]
+[2019-01-03T17:42:14,953][INFO ][o.e.e.NodeEnvironment    ] [H2ROGP7] heap size [990.7mb], compressed ordinary object pointers [true]
+[2019-01-03T17:42:14,969][INFO ][o.e.n.Node               ] [H2ROGP7] node name derived from node ID [H2ROGP7mT_69eRkQghJIXw]; set [node.name] to override
+[2019-01-03T17:42:14,969][INFO ][o.e.n.Node               ] [H2ROGP7] version[6.5.4], pid[26614], build[default/tar/d2ef93d/2018-12-17T21:17:40.758843Z], OS[Linux/4.20.0-042000-generic/amd64], JVM[Oracle Corporation/OpenJDK 64-Bit Server VM/10.0.2/10.0.2+13-Ubuntu-1ubuntu0.18.04.4]
+[2019-01-03T17:42:14,969][INFO ][o.e.n.Node               ] [H2ROGP7] JVM arguments [-Xms1g, -Xmx1g, -XX:+UseConcMarkSweepGC, -XX:CMSInitiatingOccupancyFraction=75, -XX:+UseCMSInitiatingOccupancyOnly, -XX:+AlwaysPreTouch, -Xss1m, -Djava.awt.headless=true, -Dfile.encoding=UTF-8, -Djna.nosys=true, -XX:-OmitStackTraceInFastThrow, -Dio.netty.noUnsafe=true, -Dio.netty.noKeySetOptimization=true, -Dio.netty.recycler.maxCapacityPerThread=0, -Dlog4j.shutdownHookEnabled=false, -Dlog4j2.disable.jmx=true, -Djava.io.tmpdir=/tmp/elasticsearch.uYAGsuO2, -XX:+HeapDumpOnOutOfMemoryError, -XX:HeapDumpPath=data, -XX:ErrorFile=logs/hs_err_pid%p.log, -Xlog:gc*,gc+age=trace,safepoint:file=logs/gc.log:utctime,pid,tags:filecount=32,filesize=64m, -Djava.locale.providers=COMPAT, -XX:UseAVX=2, -Des.path.home=/home/bhupinder/elasticsearch-6.5.4, -Des.path.conf=/home/bhupinder/elasticsearch-6.5.4/config, -Des.distribution.flavor=default, -Des.distribution.type=tar]
+[2019-01-03T17:42:16,760][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [aggs-matrix-stats]
+[2019-01-03T17:42:16,760][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [analysis-common]
+[2019-01-03T17:42:16,760][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [ingest-common]
+[2019-01-03T17:42:16,760][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [lang-expression]
+[2019-01-03T17:42:16,760][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [lang-mustache]
+[2019-01-03T17:42:16,761][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [lang-painless]
+[2019-01-03T17:42:16,761][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [mapper-extras]
+[2019-01-03T17:42:16,761][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [parent-join]
+[2019-01-03T17:42:16,761][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [percolator]
+[2019-01-03T17:42:16,761][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [rank-eval]
+[2019-01-03T17:42:16,762][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [reindex]
+[2019-01-03T17:42:16,762][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [repository-url]
+[2019-01-03T17:42:16,762][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [transport-netty4]
+[2019-01-03T17:42:16,762][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [tribe]
+[2019-01-03T17:42:16,762][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [x-pack-ccr]
+[2019-01-03T17:42:16,762][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [x-pack-core]
+[2019-01-03T17:42:16,763][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [x-pack-deprecation]
+[2019-01-03T17:42:16,763][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [x-pack-graph]
+[2019-01-03T17:42:16,763][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [x-pack-logstash]
+[2019-01-03T17:42:16,763][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [x-pack-ml]
+[2019-01-03T17:42:16,763][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [x-pack-monitoring]
+[2019-01-03T17:42:16,763][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [x-pack-rollup]
+[2019-01-03T17:42:16,764][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [x-pack-security]
+[2019-01-03T17:42:16,764][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [x-pack-sql]
+[2019-01-03T17:42:16,764][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [x-pack-upgrade]
+[2019-01-03T17:42:16,764][INFO ][o.e.p.PluginsService     ] [H2ROGP7] loaded module [x-pack-watcher]
+[2019-01-03T17:42:16,764][INFO ][o.e.p.PluginsService     ] [H2ROGP7] no plugins loaded
+[2019-01-03T17:42:20,075][INFO ][o.e.x.s.a.s.FileRolesStore] [H2ROGP7] parsed [0] roles from file [/home/bhupinder/elasticsearch-6.5.4/config/roles.yml]
+[2019-01-03T17:42:20,724][INFO ][o.e.x.m.j.p.l.CppLogMessageHandler] [H2ROGP7] [controller/26762] [Main.cc@109] controller (64 bit): Version 6.5.4 (Build b616085ef32393) Copyright (c) 2018 Elasticsearch BV
+[2019-01-03T17:42:21,506][DEBUG][o.e.a.ActionModule       ] [H2ROGP7] Using REST wrapper from plugin org.elasticsearch.xpack.security.Security
+[2019-01-03T17:42:22,251][INFO ][o.e.d.DiscoveryModule    ] [H2ROGP7] using discovery type [zen] and host providers [settings]
+[2019-01-03T17:42:23,554][INFO ][o.e.n.Node               ] [H2ROGP7] initialized
+[2019-01-03T17:42:23,555][INFO ][o.e.n.Node               ] [H2ROGP7] starting ...
+[2019-01-03T17:42:23,738][INFO ][o.e.t.TransportService   ] [H2ROGP7] publish_address {127.0.0.1:9300}, bound_addresses {[::1]:9300}, {127.0.0.1:9300}
+[2019-01-03T17:42:23,787][WARN ][o.e.b.BootstrapChecks    ] [H2ROGP7] max file descriptors [4096] for elasticsearch process is too low, increase to at least [65536]
+[2019-01-03T17:42:23,787][WARN ][o.e.b.BootstrapChecks    ] [H2ROGP7] max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
+[2019-01-03T17:42:26,858][INFO ][o.e.c.s.MasterService    ] [H2ROGP7] zen-disco-elected-as-master ([0] nodes joined), reason: new_master {H2ROGP7}{H2ROGP7mT_69eRkQghJIXw}{w1K00FDXTmiieW2wwwLggA}{127.0.0.1}{127.0.0.1:9300}{ml.machine_memory=8134549504, xpack.installed=true, ml.max_open_jobs=20, ml.enabled=true}
+[2019-01-03T17:42:26,865][INFO ][o.e.c.s.ClusterApplierService] [H2ROGP7] new_master {H2ROGP7}{H2ROGP7mT_69eRkQghJIXw}{w1K00FDXTmiieW2wwwLggA}{127.0.0.1}{127.0.0.1:9300}{ml.machine_memory=8134549504, xpack.installed=true, ml.max_open_jobs=20, ml.enabled=true}, reason: apply cluster state (from master [master {H2ROGP7}{H2ROGP7mT_69eRkQghJIXw}{w1K00FDXTmiieW2wwwLggA}{127.0.0.1}{127.0.0.1:9300}{ml.machine_memory=8134549504, xpack.installed=true, ml.max_open_jobs=20, ml.enabled=true} committed version [1] source [zen-disco-elected-as-master ([0] nodes joined)]])
+[2019-01-03T17:42:26,885][INFO ][o.e.x.s.t.n.SecurityNetty4HttpServerTransport] [H2ROGP7] publish_address {127.0.0.1:9200}, bound_addresses {[::1]:9200}, {127.0.0.1:9200}
+[2019-01-03T17:42:26,886][INFO ][o.e.n.Node               ] [H2ROGP7] started
+[2019-01-03T17:42:27,586][WARN ][o.e.x.s.a.s.m.NativeRoleMappingStore] [H2ROGP7] Failed to clear cache for realms [[]]
+[2019-01-03T17:42:27,619][INFO ][o.e.l.LicenseService     ] [H2ROGP7] license [f1a4d935-a7f5-436b-91ee-1d3526816ded] mode [basic] - valid
+[2019-01-03T17:42:27,631][INFO ][o.e.g.GatewayService     ] [H2ROGP7] recovered [1] indices into cluster_state
+[2019-01-03T17:42:29,072][INFO ][o.e.c.r.a.AllocationService] [H2ROGP7] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[movie][2]] ...]).
+[2019-01-03T17:42:32,226][INFO ][o.e.n.Node               ] [H2ROGP7] stopping ...
+[2019-01-03T17:42:32,248][INFO ][o.e.x.w.WatcherService   ] [H2ROGP7] stopping watch service, reason [shutdown initiated]
+[2019-01-03T17:42:32,675][INFO ][o.e.x.m.j.p.l.CppLogMessageHandler] [H2ROGP7] [controller/26762] [Main.cc@148] Ml controller exiting
+[2019-01-03T17:42:32,676][INFO ][o.e.x.m.j.p.NativeController] [H2ROGP7] Native controller process has stopped - no new native processes can be started
+[2019-01-03T17:42:32,726][INFO ][o.e.n.Node               ] [H2ROGP7] stopped
+[2019-01-03T17:42:32,727][INFO ][o.e.n.Node               ] [H2ROGP7] closing ...
+[2019-01-03T17:42:32,734][INFO ][o.e.n.Node               ] [H2ROGP7] closed
