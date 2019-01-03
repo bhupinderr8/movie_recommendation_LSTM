@@ -1,14 +1,10 @@
-import json
 import numpy as np
 import requests
 from gensim.models import Word2Vec
 import json
 
-X_data = np.load('coreapi/dataset/X_data.npy')
 
 word_model = Word2Vec.load("coreapi/dataset/word2vec.model")
-
-max_sentence_len = 1740  # maximum value of a sequence made by test user
 
 
 def word2idx(word):
@@ -37,7 +33,7 @@ def generate_next(text, num_generated=10):
     # given a sequence of movie ids, a next sequence of 10 is generated
     word_idx = [word2idx(word) for word in text.lower().split()]
     for i in range(num_generated):
-        data = json.dumps({"instances": [[23]]})
+        data = json.dumps({"instances": [np.array(word_idx).tolist()]})
         headers = {"content-type": "application/json"}
         json_response = requests.post('http://localhost:850/v1/models/model:predict', data=data, headers=headers)
         predictions = json.loads(json_response.text)
@@ -55,8 +51,7 @@ def get_movie_descriptions(recommended_movies):
         response = requests.get(url="http://localhost:9200/movie/_doc/" + str(movie))
         response_dict = json.loads(response.text)
         if response_dict['found']:
-            print("dictionary is ")
-            print(response_dict['_source']['Title'])
+            print(response_dict['_source']['Title'], movie)
             recommended_movie_titles.append(response_dict['_source'])
         else:
             print("Id " + str(movie) + " Not found")
@@ -71,7 +66,8 @@ def generate_list(seq):
     print("recommended ids are")
     print(recommended_movie_ids)
     movie_descriptions = get_movie_descriptions(recommended_movie_ids)
-    return json.dumps(movie_descriptions)
+    json_response = json.dumps(movie_descriptions)
+    return json_response
 
 
 def get_id(movie_name):
@@ -106,5 +102,4 @@ def get_movie_ids(movie_list):
     dict = json.loads(movie_list)
     for i in dict['list']:
         movie_ids = movie_ids + " " + get_id(i)
-    print(movie_ids)
     return movie_ids
