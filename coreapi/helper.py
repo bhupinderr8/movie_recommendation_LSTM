@@ -116,7 +116,7 @@ def get_id(movie_name):
 
 def get_movie_ids(movie_list):
     movie_ids = ""
-    dict = json.loads(movie_list)
-    for i in dict['list']:
+    dict_ = json.loads(movie_list)
+    for i in dict_['list']:
         movie_ids = movie_ids + " " + get_id(i)
     return movie_ids

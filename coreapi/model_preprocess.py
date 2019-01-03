@@ -31,8 +31,8 @@ word_model.save(word_model_save_path)
 max_sentence_len = len(max(l, key=len))
 
 
-def word2idx(word):
-    return word_model.wv.vocab[word].index
+def word2idx(word_):
+    return word_model.wv.vocab[word_].index
 
 
 def idx2word(idx):
@@ -57,7 +57,7 @@ model.add(keras.layers.Activation('softmax'))
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy')
 
 model.summary()
-history = model.fit(train_x,train_y, epochs=1)
+history = model.fit(train_x, train_y, epochs=1)
 
 pd.Series(history.history['loss']).plot(logy=True)
 plt.xlabel("Epoch")
