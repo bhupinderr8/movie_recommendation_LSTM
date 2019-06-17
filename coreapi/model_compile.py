@@ -13,7 +13,7 @@ model = load_model(os.path.join(dirname, 'dataset/keras_model.h5'))
 print(model.outputs)
 
 
-MODEL_DIR = os.path.join(dirname, "dataset/")
+MODEL_DIR = os.path.join(dirname, "dataset/model")
 version = 1
 export_path = os.path.join(MODEL_DIR, str(version))
 print('export_path = {}\n'.format(export_path))

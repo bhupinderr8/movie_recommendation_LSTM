@@ -50,6 +50,10 @@ def get_omdb(movie):
     json_response = requests.get("http://www.omdbapi.com/?i=tt" + str(imdb_id[0]) + "&apikey=fdfe80e8")
     return json_response
 
+def get_omdb_from_name(movie_name):
+    json_response = requests.get("http://www.omdbapi.com/?t=" + movie_name + "&apikey=fdfe80e8")
+    return json_response
+
 
 def add_id(json_response, id):
     headers = {"content-type": "application/json"}
@@ -79,9 +83,12 @@ def get_movie_descriptions(recommended_movies):
 def generate_list(seq):
     # convert sequence of given movies into recommended movie description and return json format
     movie_ids = get_movie_ids(seq)
+    movie_ids=""
+    for i in range(1, 50):
+        movie_ids+=str(i)+" "
     recommended_movie_ids = generate_next(movie_ids)
-    print("recommended ids are")
-    print(recommended_movie_ids)
+    # print("recommended ids are")
+    # print(recommended_movie_ids)
     movie_descriptions = get_movie_descriptions(recommended_movie_ids)
     json_response = json.dumps(movie_descriptions)
     return json_response
@@ -96,6 +103,26 @@ def get_id(movie_name):
         }
     }"""
 
+
+    """{
+    "took": 8,
+    "timed_out": false,
+    "_shards": {
+        "total": 1,
+        "successful": 1,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 0,
+            "relation": "eq"
+        },
+        "max_score": null,
+        "hits": []
+    }
+    }"""
+
     title_dict = {"Title": movie_name}
 
     match_dict = {"match": title_dict}
@@ -104,19 +131,32 @@ def get_id(movie_name):
 
     data = json.dumps(query_dict)
     headers = {"content-type": "application/json"}
-
     query_response = requests.get("http://localhost:9200/movie/_search", data=data, headers=headers)
     query_response_dict = json.loads(query_response.text)
 
+    # print("FINALLL ->", query_response_dict)
+
+    if not query_response_dict['hits']['hits']:
+        print("Movie not found in database, Searching")
+        movie_desc = get_omdb_from_name(movie_name)
+        query = json.loads(movie_desc.text)
+        # print(query)
+        if query['Response']:
+            # add the movie found into the local db
+            print("Movie Not Found Adding:", query['Title'], "  Id:", query["imdbID"])
+            add_id(query, query["imdbID"])
+            return query["imdbID"]
+        return -1
+
     final_id = query_response_dict['hits']['hits'][0]['_id']
-
-    # print(final_id)
     return final_id
-
 
 def get_movie_ids(movie_list):
     movie_ids = ""
     dict_ = json.loads(movie_list)
+
     for i in dict_['list']:
-        movie_ids = movie_ids + " " + get_id(i)
+        cur_id = get_id(i)
+        if get_id(i) != -1:
+            movie_ids = movie_ids + " " + cur_id
     return movie_ids

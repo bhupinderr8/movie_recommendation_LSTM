@@ -6,7 +6,6 @@ function cleanup {
   sudo kill `sudo lsof -t -i:8000` &> /dev/null || true
   sudo kill `sudo lsof -t -i:9200` &> /dev/null || true
   sudo kill `sudo lsof -t -i:850` &> /dev/null || true
-  >server.log
   sudo -i service elasticsearch stop
 }
 trap cleanup EXIT
@@ -16,7 +15,7 @@ sudo kill `sudo lsof -t -i:8000` &> /dev/null || true
 sudo kill `sudo lsof -t -i:9200` &> /dev/null || true
 sudo kill `sudo lsof -t -i:850` &> /dev/null || true
 
-MODEL_DIR=/home/bhupinder/PycharmProjects/movie_recommendation_LSTM/coreapi/dataset
+MODEL_DIR=/home/bhupinder/Documents/movie_recommendation_LSTM/coreapi/dataset/model
 
 sudo -i service elasticsearch start
 
