@@ -1,19 +1,18 @@
-import keras
 import tensorflow as tf
 from keras import backend as K
 import shutil
-from keras.models import load_model
+from tensorflow.keras import models
 import os
-
+sess = tf.compat.v1.InteractiveSession()
 K.set_learning_phase(0)
 
 
-dirname = os.path.dirname(os.path.abspath("__file__"))
-model = load_model(os.path.join(dirname, 'dataset/keras_model.h5'))
+directory_name = os.path.dirname(os.path.abspath("__file__"))
+model = models.load_model(os.path.join(directory_name, 'dataset/keras_model.h5'))
 print(model.outputs)
 
 
-MODEL_DIR = os.path.join(dirname, "dataset/model")
+MODEL_DIR = os.path.join(directory_name, "dataset/model")
 version = 1
 export_path = os.path.join(MODEL_DIR, str(version))
 print('export_path = {}\n'.format(export_path))
@@ -21,8 +20,21 @@ if os.path.isdir(export_path):
     print('\nAlready saved a model, cleaning up\n')
     shutil.rmtree(export_path)
 
-tf.saved_model.simple_save(
-    keras.backend.get_session(),
+MODEL_DIR = os.path.join(directory_name, "dataset/model")
+version = 1
+export_path = os.path.join(MODEL_DIR, str(version))
+print('export_path = {}\n'.format(export_path))
+if os.path.isdir(export_path):
+    print('\nAlready saved a model, cleaning up\n')
+    shutil.rmtree(export_path)
+
+tf.keras.models.save_model(
+    model,
     export_path,
-    inputs={'inpput_img': model.input},
-    outputs={'output': model.output})
+    overwrite=True,
+    include_optimizer=True,
+    save_format=None,
+    signatures=None,
+    options=None
+)
+
