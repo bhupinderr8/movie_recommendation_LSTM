@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer, RelatedField
-from .models import Link, TitleAkas, TitleBasics, TitleRatings, NameBasics
+from .models import Link, TitleAkas, TitleBasics, TitleRatings, NameBasics, TitlePrincipals
 
 class LinkSerializer(ModelSerializer):
     class Meta:

@@ -1,8 +1,8 @@
-from django.http import HttpResponse
+from rest_framework.generics import ListAPIView
 from . import helper
+from .models import TitleBasics
+from .serializers import TitleBasicsSerializer
 
 
-def index(request):
-    json_response = helper.generate_list(request.body)
-    return HttpResponse(json_response)
-
+class TitleAPIView(ListAPIView):
+    queryset = TitleBasics.objects.all()
