@@ -1,2 +1,4 @@
 /.vscode/
 /coreapi/dataset/
+db.sqlite3
+/coreapi/migrations/
