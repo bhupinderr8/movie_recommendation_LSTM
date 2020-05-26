@@ -5,11 +5,10 @@ class NameBasics(models.Model):
     nconst = models.TextField(primary_key=True)
     primaryname = models.TextField(null=True)
 
-    # class Meta:
-    #     indexes = [
-    #         models.Index(fields=['nconst']),
-    #         models.Index(fields=['primaryname']),
-    #     ]
+    class Meta:
+        indexes = [
+            models.Index(fields=['primaryname']),
+        ]
 
 class TitleBasics(models.Model):
     tconst = models.TextField(primary_key=True)

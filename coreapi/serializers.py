@@ -1,11 +1,12 @@
 from rest_framework.serializers import ModelSerializer, RelatedField
 from .models import Link, TitleAkas, TitleBasics, TitleRating, NameBasics, TitlePrincipals
 
-class TitleBasicsSerializer(ModelSerializer):
+class TitleAkasSerializer(ModelSerializer):
     class Meta:
-        model = TitleBasics
+        model = TitleAkas
         fields = [
-            'runtimeminutes',
+            'region',
+            'language'
             ]
 
 class NameBasicsSerializer(ModelSerializer):
@@ -21,23 +22,30 @@ class RatingSerializer(ModelSerializer):
         model = TitleRating
         fields = [
             'averagerating',
-            'numvotes',
+            'numofvotes',
             ]
 
 class TitleSerializer(ModelSerializer):
-    basics = TitleBasicsSerializer(read_only=True)
+    akas = TitleAkasSerializer(read_only=True)
     rating = RatingSerializer(read_only=True)
     writers = NameBasicsSerializer(many=True, read_only=True)
     directors = NameBasicsSerializer(many=True, read_only=True)
 
     class Meta:
-        model = TitleAkas
+        model = TitleBasics
         fields = [
             'writers',
             'directors',
             'rating',
-            'basics',
-            'titleid',
-            'title',
+            'akas',
+            'primarytitle',
+            'originaltitle',
+            'titletype',
+            'isadult',
+            'startyear',
+            'endyear',
+            'runtimeminutes',
+            'genres',
+            'imagelink',
         ]
         read_only_fields = fields

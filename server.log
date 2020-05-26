@@ -1,18 +1,18 @@
-2020-05-24 21:27:58.452008: I tensorflow_serving/model_servers/server.cc:86] Building single TensorFlow model file config:  model_name: model model_base_path: /home/bhupinder/Documents/movie_recommendation_LSTM/coreapi/dataset/model
-2020-05-24 21:27:58.468661: I tensorflow_serving/model_servers/server_core.cc:462] Adding/updating models.
-2020-05-24 21:27:58.468716: I tensorflow_serving/model_servers/server_core.cc:573]  (Re-)adding model: model
-2020-05-24 21:27:58.581202: I tensorflow_serving/core/basic_manager.cc:739] Successfully reserved resources to load servable {name: model version: 1}
-2020-05-24 21:27:58.581237: I tensorflow_serving/core/loader_harness.cc:66] Approving load for servable version {name: model version: 1}
-2020-05-24 21:27:58.581247: I tensorflow_serving/core/loader_harness.cc:74] Loading servable version {name: model version: 1}
-2020-05-24 21:27:58.581267: I external/org_tensorflow/tensorflow/cc/saved_model/reader.cc:31] Reading SavedModel from: /home/bhupinder/Documents/movie_recommendation_LSTM/coreapi/dataset/model/1
-2020-05-24 21:27:58.635260: I external/org_tensorflow/tensorflow/cc/saved_model/reader.cc:54] Reading meta graph with tags { serve }
-2020-05-24 21:27:58.635296: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:264] Reading SavedModel debug info (if present) from: /home/bhupinder/Documents/movie_recommendation_LSTM/coreapi/dataset/model/1
-2020-05-24 21:27:58.636084: I external/org_tensorflow/tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
-2020-05-24 21:27:58.747749: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:203] Restoring SavedModel bundle.
-2020-05-24 21:27:59.047795: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:152] Running initialization op on SavedModel bundle at path: /home/bhupinder/Documents/movie_recommendation_LSTM/coreapi/dataset/model/1
-2020-05-24 21:27:59.121069: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:333] SavedModel load for tags { serve }; Status: success: OK. Took 539791 microseconds.
-2020-05-24 21:27:59.129118: I tensorflow_serving/servables/tensorflow/saved_model_warmup.cc:105] No warmup data file found at /home/bhupinder/Documents/movie_recommendation_LSTM/coreapi/dataset/model/1/assets.extra/tf_serving_warmup_requests
-2020-05-24 21:27:59.137778: I tensorflow_serving/core/loader_harness.cc:87] Successfully loaded servable version {name: model version: 1}
-2020-05-24 21:27:59.165988: I tensorflow_serving/model_servers/server.cc:358] Running gRPC ModelServer at 0.0.0.0:8500 ...
+2020-05-26 15:20:27.813306: I tensorflow_serving/model_servers/server.cc:86] Building single TensorFlow model file config:  model_name: model model_base_path: /home/bhupinder/Documents/movie_recommendation_LSTM/coreapi/dataset/model
+2020-05-26 15:20:27.829814: I tensorflow_serving/model_servers/server_core.cc:462] Adding/updating models.
+2020-05-26 15:20:27.829945: I tensorflow_serving/model_servers/server_core.cc:573]  (Re-)adding model: model
+2020-05-26 15:20:28.536720: I tensorflow_serving/core/basic_manager.cc:739] Successfully reserved resources to load servable {name: model version: 1}
+2020-05-26 15:20:28.536852: I tensorflow_serving/core/loader_harness.cc:66] Approving load for servable version {name: model version: 1}
+2020-05-26 15:20:28.536967: I tensorflow_serving/core/loader_harness.cc:74] Loading servable version {name: model version: 1}
+2020-05-26 15:20:28.537477: I external/org_tensorflow/tensorflow/cc/saved_model/reader.cc:31] Reading SavedModel from: /home/bhupinder/Documents/movie_recommendation_LSTM/coreapi/dataset/model/1
+2020-05-26 15:20:28.811115: I external/org_tensorflow/tensorflow/cc/saved_model/reader.cc:54] Reading meta graph with tags { serve }
+2020-05-26 15:20:28.811253: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:264] Reading SavedModel debug info (if present) from: /home/bhupinder/Documents/movie_recommendation_LSTM/coreapi/dataset/model/1
+2020-05-26 15:20:28.813099: I external/org_tensorflow/tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2020-05-26 15:20:29.208231: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:203] Restoring SavedModel bundle.
+2020-05-26 15:20:30.185878: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:152] Running initialization op on SavedModel bundle at path: /home/bhupinder/Documents/movie_recommendation_LSTM/coreapi/dataset/model/1
+2020-05-26 15:20:30.278649: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:333] SavedModel load for tags { serve }; Status: success: OK. Took 1741168 microseconds.
+2020-05-26 15:20:30.283673: I tensorflow_serving/servables/tensorflow/saved_model_warmup.cc:105] No warmup data file found at /home/bhupinder/Documents/movie_recommendation_LSTM/coreapi/dataset/model/1/assets.extra/tf_serving_warmup_requests
+2020-05-26 15:20:30.290637: I tensorflow_serving/core/loader_harness.cc:87] Successfully loaded servable version {name: model version: 1}
+2020-05-26 15:20:30.325477: I tensorflow_serving/model_servers/server.cc:358] Running gRPC ModelServer at 0.0.0.0:8500 ...
+2020-05-26 15:20:30.414531: I tensorflow_serving/model_servers/server.cc:378] Exporting HTTP/REST API at:localhost:850 ...
 [evhttp_server.cc : 238] NET_LOG: Entering the event loop ...
-2020-05-24 21:27:59.170287: I tensorflow_serving/model_servers/server.cc:378] Exporting HTTP/REST API at:localhost:850 ...

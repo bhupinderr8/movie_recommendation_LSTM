@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_link</OriginalElement>
+  <nodes>
+    <node x="210.0" y="96.0">5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_namebasics</node>
+    <node x="504.0" y="415.0">5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_titlebasics_directors</node>
+    <node x="236.0" y="415.0">5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_titlebasics_writers</node>
+    <node x="0.0" y="367.0">5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_titleprincipals</node>
+    <node x="992.0" y="415.0">5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_link</node>
+    <node x="788.0" y="403.0">5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_titlerating</node>
+    <node x="690.5" y="0.0">5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_titlebasics</node>
+    <node x="1154.0" y="343.0">5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_titleakas</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_titleprincipals" target="5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_titlebasics">
+      <point x="54.0" y="-100.5" />
+      <point x="162.0" y="303.0" />
+      <point x="707.25" y="303.0" />
+      <point x="-83.75" y="136.5" />
+    </edge>
+    <edge source="5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_titlebasics_directors" target="5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_titlebasics">
+      <point x="66.00000000000006" y="-52.5" />
+      <point x="702.0" y="323.0" />
+      <point x="774.25" y="323.0" />
+      <point x="-16.75" y="136.5" />
+    </edge>
+    <edge source="5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_titlebasics_writers" target="5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_titlebasics">
+      <point x="62.0" y="-52.5" />
+      <point x="422.0" y="313.0" />
+      <point x="740.75" y="313.0" />
+      <point x="-50.25" y="136.5" />
+    </edge>
+    <edge source="5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_titlerating" target="5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_titlebasics">
+      <point x="0.0" y="-64.5" />
+      <point x="880.0" y="323.0" />
+      <point x="807.75" y="323.0" />
+      <point x="16.75" y="136.5" />
+    </edge>
+    <edge source="5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_titleakas" target="5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_titlebasics">
+      <point x="0.0" y="-124.5" />
+      <point x="1238.0" y="303.0" />
+      <point x="874.75" y="303.0" />
+      <point x="83.75" y="136.5" />
+    </edge>
+    <edge source="5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_titlebasics_directors" target="5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_namebasics">
+      <point x="-65.99999999999994" y="-52.5" />
+      <point x="570.0" y="293.0" />
+      <point x="356.66666666666663" y="293.0" />
+      <point x="58.66666666666666" y="40.5" />
+    </edge>
+    <edge source="5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_titleprincipals" target="5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_namebasics">
+      <point x="-54.0" y="-100.5" />
+      <point x="54.0" y="293.0" />
+      <point x="239.33333333333331" y="293.0" />
+      <point x="-58.666666666666664" y="40.5" />
+    </edge>
+    <edge source="5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_link" target="5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_titlebasics">
+      <point x="0.0" y="-52.5" />
+      <point x="1063.0" y="313.0" />
+      <point x="841.25" y="313.0" />
+      <point x="50.25" y="136.5" />
+    </edge>
+    <edge source="5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_titlebasics_writers" target="5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_namebasics">
+      <point x="-62.0" y="-52.5" />
+      <point x="0.0" y="40.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.5117734724292101" x="759.5341458950653" y="302.54764988929946" />
+  <SelectedNodes>
+    <node>5d83c57a-6675-4b44-a76e-f9290b7e3750.TABLE:main.coreapi_titlebasics_directors</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+
