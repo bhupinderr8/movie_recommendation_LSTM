@@ -5,11 +5,11 @@ class NameBasics(models.Model):
     nconst = models.TextField(primary_key=True)
     primaryname = models.TextField(null=True)
 
-    class Meta:
-        indexes = [
-            models.Index(fields=['nconst']),
-            models.Index(fields=['primaryname']),
-        ]
+    # class Meta:
+    #     indexes = [
+    #         models.Index(fields=['nconst']),
+    #         models.Index(fields=['primaryname']),
+    #     ]
 
 class TitleBasics(models.Model):
     tconst = models.TextField(primary_key=True)
@@ -25,32 +25,32 @@ class TitleBasics(models.Model):
     directors = models.ManyToManyField(NameBasics, related_name='movies')
     writers = models.ManyToManyField(NameBasics, related_name='writers')
 
-    class Meta:
-        indexes = [
-            models.Index(fields=['tconst']),
-            models.Index(fields=['primarytitle']),
-            models.Index(fields=['originaltitle']),
-        ]
+    # class Meta:
+    #     indexes = [
+    #         models.Index(fields=['tconst']),
+    #         models.Index(fields=['primarytitle']),
+    #         models.Index(fields=['originaltitle']),
+    #     ]
 
 class Link(models.Model):
     movieid = models.IntegerField()
     imdbid = models.OneToOneField(TitleBasics, on_delete=models.CASCADE)
 
-    class Meta:
-        indexes = [
-            models.Index(fields=['movieid']),
-            models.Index(fields=['imdbid']),
-        ]
+    # class Meta:
+    #     indexes = [
+    #         models.Index(fields=['movieid']),
+    #         models.Index(fields=['imdbid']),
+    #     ]
 
 class TitleRating(models.Model):
     imdbid = models.OneToOneField(TitleBasics, on_delete=models.CASCADE, related_name='rating')
     averagerating = models.FloatField(null=True)
     numofvotes = models.IntegerField(null=True)
 
-    class Meta:
-        indexes = [
-            models.Index(fields=['imdbid']),
-        ]
+    # class Meta:
+    #     indexes = [
+    #         models.Index(fields=['imdbid']),
+    #     ]
 
 class TitlePrincipals(models.Model):
     tconst = models.ForeignKey(TitleBasics, on_delete=models.CASCADE, related_name='crew')
@@ -60,11 +60,11 @@ class TitlePrincipals(models.Model):
     job = models.TextField(null=True)
     characters = models.TextField(null=True)
 
-    class Meta:
-        indexes = [
-            models.Index(fields=['tconst']),
-            models.Index(fields=['nconst']),
-        ]
+    # class Meta:
+    #     indexes = [
+    #         models.Index(fields=['tconst']),
+    #         models.Index(fields=['nconst']),
+    #     ]
 
 class TitleAkas(models.Model):
     tconst = models.ForeignKey(TitleBasics, on_delete=models.CASCADE)
@@ -76,7 +76,7 @@ class TitleAkas(models.Model):
     attributes = models.TextField(null=True)
     original = models.TextField(null=True)
 
-    class Meta:
-        indexes = [
-            models.Index(fields=['tconst']),
-        ]
+    # class Meta:
+    #     indexes = [
+    #         models.Index(fields=['tconst']),
+    #     ]
