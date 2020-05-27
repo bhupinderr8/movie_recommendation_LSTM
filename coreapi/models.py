@@ -24,12 +24,11 @@ class TitleBasics(models.Model):
     directors = models.ManyToManyField(NameBasics, related_name='movies')
     writers = models.ManyToManyField(NameBasics, related_name='writers')
 
-    # class Meta:
-    #     indexes = [
-    #         models.Index(fields=['tconst']),
-    #         models.Index(fields=['primarytitle']),
-    #         models.Index(fields=['originaltitle']),
-    #     ]
+    class Meta:
+        indexes = [
+            models.Index(fields=['primarytitle']),
+            models.Index(fields=['originaltitle']),
+        ]
 
 class Link(models.Model):
     movieid = models.IntegerField()

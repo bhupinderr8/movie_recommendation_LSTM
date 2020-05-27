@@ -25,9 +25,10 @@ class TitleAPIView(ListAPIView):
 class RecommendAPIView(ListAPIView):
     queryset = TitleBasics.objects.all()
     serializer_class = TitleSerializer
+
     def get_queryset(self):
         queryset = TitleBasics.objects.all()
-        pref_list = self.request.GET.get("id")
+        pref_list = self.request.GET.getlist("id")
         recommendations = helper.generate_list(pref_list)
         queryset = queryset.filter(
             Q(tconst__in=recommendations)

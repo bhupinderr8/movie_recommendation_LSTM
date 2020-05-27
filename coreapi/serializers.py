@@ -1,6 +1,7 @@
 from rest_framework.serializers import ModelSerializer, RelatedField
 from .models import Link, TitleAkas, TitleBasics, TitleRating, NameBasics, TitlePrincipals
 
+
 class TitleAkasSerializer(ModelSerializer):
     class Meta:
         model = TitleAkas
@@ -30,7 +31,6 @@ class TitleSerializer(ModelSerializer):
     rating = RatingSerializer(read_only=True)
     writers = NameBasicsSerializer(many=True, read_only=True)
     directors = NameBasicsSerializer(many=True, read_only=True)
-
     class Meta:
         model = TitleBasics
         fields = [
