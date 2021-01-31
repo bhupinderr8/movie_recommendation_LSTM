@@ -1,162 +1,61 @@
 import json
-
-import numpy as np
-import pandas as pd
 import requests
-from gensim.models import Word2Vec
-
-word_model = Word2Vec.load("coreapi/dataset/word2vec.model")
-links = pd.read_csv('coreapi/dataset/links.csv', sep=',', dtype=object)
+import sqlite3
 
 
-def word2idx(word):
-    # use to generate word from the given index in word model
-    return word_model.wv.vocab[word].index
+def get_next_recommendation(cur_seq) -> int:
+    data = json.dumps({"instances": [cur_seq]})
+    headers = {"content-type": "application/json"}
+    json_response = requests.post('http://localhost:850/v1/models/model:predict', data=data, headers=headers)
+    prediction = json.loads(json_response.text)['predictions']
+    return prediction
 
 
-def idx2word(idx):
-    # use to generate index from the given word in word model
-    return word_model.wv.index2word[idx]
-
-
-def sample(predictions, temperature=1.0):
-    # given output predictions from the tensorflow model, movie id is predicted with max probability
-    if temperature <= 0:
-        return np.argmax(predictions)
-    predictions = np.asarray(predictions).astype('float64')
-    predictions = np.log(predictions) / temperature
-    exp_preds = np.exp(predictions)
-    predictions = exp_preds / np.sum(exp_preds)
-    probabilities = np.random.multinomial(1, predictions, 1)
-    return np.argmax(probabilities)
-
-
-def generate_next(text, num_generated=10):
+def generate_next(cur_seq, num_generated=20) -> list:
     # given a sequence of movie ids, a next sequence of 10 is generated
-    word_idx = [word2idx(word) for word in text.lower().split()]
-    for i in range(num_generated):
-        data = json.dumps({"instances": [np.array(word_idx).tolist()]})
-        headers = {"content-type": "application/json"}
-        json_response = requests.post('http://localhost:850/v1/models/model:predict', data=data, headers=headers)
-        predictions = json.loads(json_response.text)
-        prediction = np.asanyarray(predictions['predictions'])
-        idx = sample(prediction[-1], temperature=1)
-        word_idx.append(idx)
-    return ' '.join(idx2word(idx) for idx in word_idx)
+    recommend_list = []
+    while len(recommend_list) < num_generated:
+        candidate = get_next_recommendation(cur_seq)
+        recommend_list.extend(candidate)
+        cur_seq.extend(candidate)
+    return recommend_list
 
 
-def get_omdb(movie):
-    imdb_id = links.loc[links['movieId'] == str(movie)]['imdbId'].tolist()
-    json_response = requests.get("http://www.omdbapi.com/?i=tt" + str(imdb_id[0]) + "&apikey=fdfe80e8")
-    return json_response
-
-def get_omdb_from_name(movie_name):
-    json_response = requests.get("http://www.omdbapi.com/?t=" + movie_name + "&apikey=fdfe80e8")
-    return json_response
-
-
-def add_id(json_response, id):
-    headers = {"content-type": "application/json"}
-    requests.put('http://localhost:9200/movie/_doc/' + id + '?pretty', data=json_response, headers=headers)
+def id_to_imdb(movie_id) -> str:
+    with sqlite3.connect("db.sqlite3") as connection:
+        cursor = connection.cursor()
+        cursor.execute("select imdbid_id from coreapi_link where movieid=?", [movie_id])
+        try:
+            imdb_id = cursor.fetchone()[0]
+        except:
+            imdb_id = None
+        cursor.close()
+    return imdb_id
 
 
-def get_movie_descriptions(recommended_movies):
-    # convert list of movie ids into a json movie descriptions using elasticsearch api
-    movie_dict = recommended_movies.split(' ')
-    recommended_movie_titles = []
-    for movie in movie_dict:
-        response = requests.get(url="http://localhost:9200/movie/_doc/" + str(movie))
-        response_dict = json.loads(response.text)
-        if response_dict['found']:
-            print("Movie Found:", response_dict['_source']['Title'], movie)
-            recommended_movie_titles.append(response_dict['_source'])
-        else:
-            # here omdb rest api is to be used
-            json_response = get_omdb(movie)
-            movie_description = json.loads(json_response.text)
-            recommended_movie_titles.append(movie_description)
-            print("Movie Not Found Adding:", movie_description['Title'], "  Id:", movie)
-            add_id(json_response, movie)
-    return recommended_movie_titles
+def imdb_to_id(imdb_id) -> int:
+    with sqlite3.connect("db.sqlite3") as connection:
+        cursor = connection.cursor()
+        cursor.execute("select movieid from coreapi_link where imdbid_id = ?", [imdb_id])
+        try:
+            movie_id = int(cursor.fetchone()[0])
+        except:
+            movie_id = None
+        cursor.close()
+    return movie_id
 
 
-def generate_list(seq):
+def generate_list(seq) -> list:
     # convert sequence of given movies into recommended movie description and return json format
-    movie_ids = get_movie_ids(seq)
-    movie_ids=""
-    for i in range(1, 50):
-        movie_ids+=str(i)+" "
+    if seq:
+        movie_ids = list(map(imdb_to_id, seq))
+    else:
+        # perform random selection to get recommendations
+        return ["tt0000001"]
     recommended_movie_ids = generate_next(movie_ids)
-    # print("recommended ids are")
-    # print(recommended_movie_ids)
-    movie_descriptions = get_movie_descriptions(recommended_movie_ids)
-    json_response = json.dumps(movie_descriptions)
-    return json_response
+    recommended_movie_ids = map(id_to_imdb, recommended_movie_ids)
+    return list(recommended_movie_ids)
 
 
-def get_id(movie_name):
-    """{
-    "query": {
-        "match" : {
-            "Title" : "toy story 2"
-                }
-        }
-    }"""
-
-
-    """{
-    "took": 8,
-    "timed_out": false,
-    "_shards": {
-        "total": 1,
-        "successful": 1,
-        "skipped": 0,
-        "failed": 0
-    },
-    "hits": {
-        "total": {
-            "value": 0,
-            "relation": "eq"
-        },
-        "max_score": null,
-        "hits": []
-    }
-    }"""
-
-    title_dict = {"Title": movie_name}
-
-    match_dict = {"match": title_dict}
-
-    query_dict = {"query": match_dict}
-
-    data = json.dumps(query_dict)
-    headers = {"content-type": "application/json"}
-    query_response = requests.get("http://localhost:9200/movie/_search", data=data, headers=headers)
-    query_response_dict = json.loads(query_response.text)
-
-    # print("FINALLL ->", query_response_dict)
-
-    if not query_response_dict['hits']['hits']:
-        print("Movie not found in database, Searching")
-        movie_desc = get_omdb_from_name(movie_name)
-        query = json.loads(movie_desc.text)
-        # print(query)
-        if query['Response']:
-            # add the movie found into the local db
-            print("Movie Not Found Adding:", query['Title'], "  Id:", query["imdbID"])
-            add_id(query, query["imdbID"])
-            return query["imdbID"]
-        return -1
-
-    final_id = query_response_dict['hits']['hits'][0]['_id']
-    return final_id
-
-def get_movie_ids(movie_list):
-    movie_ids = ""
-    dict_ = json.loads(movie_list)
-
-    for i in dict_['list']:
-        cur_id = get_id(i)
-        if get_id(i) != -1:
-            movie_ids = movie_ids + " " + cur_id
-    return movie_ids
+if __name__ == "__main__":
+    print(generate_list(["tt0114952"]))

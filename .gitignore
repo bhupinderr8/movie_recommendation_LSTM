@@ -1,2 +1,9 @@
 /.vscode/
 /coreapi/dataset/
+db.sqlite3
+.ipynb_checkpoints
+/scripts/.ipynb_checkpoints
+.idea
+/coreapi/migrations/
+db.sqlite3-shm
+db.sqlite3-wal
