@@ -47,11 +47,13 @@ def imdb_to_id(imdb_id) -> int:
 
 def generate_list(seq) -> list:
     # convert sequence of given movies into recommended movie description and return json format
+    movie_ids = []
     if seq:
         movie_ids = list(map(imdb_to_id, seq))
     else:
         # perform random selection to get recommendations
-        return ["tt0000001"]
+        movie_ids = [199284]
+    
     recommended_movie_ids = generate_next(movie_ids)
     recommended_movie_ids = map(id_to_imdb, recommended_movie_ids)
     return list(recommended_movie_ids)
